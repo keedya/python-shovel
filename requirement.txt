@@ -1,3 +1,4 @@
 Flask==0.12.1
 PyYAML==3.12
-on-http_api2_0>=1.0.2
+on-http_api2_0==1.0.2
+python_ironicclient==1.12.0

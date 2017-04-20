@@ -25,6 +25,13 @@ config = {
         'api': 'api/2.0',
         'debug': False,
         'verify_ssl': False
+    },
+    'ironic': {
+        'os_username': 'admin',
+        'os_password': 'password',
+        'os_auth_url': 'localhost:5000/v2.0',
+        'os_tenant_name': 'admin',
+        'insecure': False
     }
 }
 

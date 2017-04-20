@@ -12,8 +12,7 @@ class GetNodes(Resource):
     '''Shows a list of all compute nodes in RackHD'''
     def get(self):
         '''List all compute nodes'''
-        return (rackhd_client.get_compute_nodes(),
-                rackhd_client.get_status())
+        return rackhd_client.get_compute_nodes()
 
 
 @rackhd_route.route('/nodes/<string:identifier>/catalogs')
