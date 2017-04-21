@@ -22,3 +22,11 @@ alt="Shovel" width="240" height="180" border="10" /></a>
 
 - Shovel swagger is reachable via (shovel-host':'shovel port')/#
 - Shovel swagger json file can be found at  ('shovel-host':'shovel port')/swagger.json
+
+## Run in docker
+
+- docker build -t rackhd/shovel .
+- docker run -p 9005:9005
+
+If you want to mount a different config yml you can run:
+- docker run -p 9005:9005 -v ~/python-shovel/config/config.yml:/usr/src/app/config/config.yml
