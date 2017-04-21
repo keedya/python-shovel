@@ -32,6 +32,14 @@ config = {
         'os_auth_url': 'localhost:5000/v2.0',
         'os_tenant_name': 'admin',
         'insecure': False
+    },
+    'glance': {
+        'os_username': 'admin',
+        'os_password': 'password',
+        'os_auth_url': 'localhost:5000/v2.0',
+        'glance_url': 'http://localhost:9292',
+        'os_tenant_name': 'admin',
+        'insecure': False
     }
 }
 

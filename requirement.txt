@@ -2,3 +2,6 @@ Flask==0.12.1
 PyYAML==3.12
 on-http_api2_0==1.0.2
 python_ironicclient==1.12.0
+python-glanceclient==2.6.0
+keystoneauth1==2.19.0
+flask_restful==0.10.1
