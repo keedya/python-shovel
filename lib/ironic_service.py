@@ -7,6 +7,7 @@ from ironicclient.v1.driver import DriverManager
 from ironicclient.v1.port import PortManager
 from ironicclient.common.apiclient.exceptions import HTTPClientError
 
+
 config = general_config['ironic']
 AUTH = config
 
@@ -33,7 +34,7 @@ def get_node_list():
     client = get_client()
     try:
         return [get_response(item)
-                for item in client.node.list()], 200
+                for item in client.node.list(detail=True)], 200
     except HTTPClientError as err:
         return {'error': err.message}, err.http_status
 
@@ -41,7 +42,7 @@ def get_node_list():
 def get_node(uuid):
     client = get_client()
     try:
-        return get_response(client.node.get(uuid)), 200
+        return get_response(client.node.get(uuid, detail=True)), 200
     except HTTPClientError as err:
         return {'error': err.message}, err.http_status
 

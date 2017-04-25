@@ -37,7 +37,7 @@ def register(user_entry):
             'local_gb': rackhd.get_node_disk_size(rackhd_node)
         }
     except Exception as err:
-        return {'err': err.message}
+        return {'err': err.message}, 404
 
     # Finally setup the node info, properties and extra
     node = {'name': user_entry.get('uuid'),

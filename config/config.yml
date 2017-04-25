@@ -5,8 +5,22 @@ shovel:
     debug: True
     logLevel: INFO
 rackhd:
-    host: http://localhost
-    port: 9090
+    host: http://10.240.19.242
+    port: 8080
     api: api/2.0
     debug: False
     verify_ssl: False
+ironic:
+    os_username: admin
+    os_password: password
+    os_auth_url: http://10.240.19.168:5000/v2.0
+    os_tenant_name: admin
+    insecure : False
+
+glance:
+    os_username: admin
+    os_password: password
+    os_auth_url: http://10.240.19.168:5000/v2.0
+    glance_url: http://10.240.19.168:9292
+    os_tenant_name: admin
+    insecure : False

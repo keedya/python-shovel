@@ -1,24 +1,17 @@
 from on_http_api2_0 import ApiApi as Api
-from on_http_api2_0 import Configuration
 from on_http_api2_0 import ApiClient
-from config.settings import config as general_config
+from config.settings import rackhd_config
 from on_http_api2_0.rest import ApiException
 from json import loads
 
 # tuple in functions returns
 DATA = 0
 STATUS = 1
-
+IRONIC_MEM_LIMIT = 51200
 
 class RackHDClient():
 
     def __init__(self):
-        rackhd_config = Configuration()
-        config = general_config.get('rackhd')
-        rackhd_config.host = config['host'] + ':' + str(config['port']) + '/' + config['api']
-        rackhd_config.verify_ssl = config['verify_ssl']
-        rackhd_config.api_client = ApiClient(host=rackhd_config.host)
-        rackhd_config.debug = config['debug']
         self.__client = rackhd_config.api_client
 
     def get_response(self):
@@ -52,12 +45,14 @@ class RackHDClient():
         return self.get_response(), self.get_status()
 
     def get_node(self, identifier):
+        node = {}
         try:
             Api().nodes_get_by_id(identifier=identifier)
+            node = self.get_response()
         except ApiException as err:
             return loads(err.body), err.status
         if self.is_valid_catalog(identifier):
-            return self.get_response(), self.get_status()
+            return node, self.get_status()
         else:
             return '', 204
 
@@ -101,9 +96,9 @@ class RackHDClient():
         lsscsi = self.get_catalogs_by_source(identifier=identifier, source='lsscsi')
         if lsscsi[DATA].get('data') is None:
             raise Exception('lsscsi data is empty for node {0}'.format(identifier))
-        for item in lsscsi.get('data'):
-            if item['peripheralType'] is 'disk':
-                local_gb += int(item['size'].replace('GB', '').trim())
+        for item in lsscsi[DATA].get('data'):
+            if item['peripheralType'] == 'disk':
+                local_gb += int(item['size'].replace('GB', ''))
         return local_gb
 
     def get_node_memory_size(self, identifier):
@@ -112,14 +107,14 @@ class RackHDClient():
             raise Exception('dmi data is empty for node {0}'.format(identifier))
         data = dmi[DATA].get('data')
         dmi_total = 0
-        if data.get('Memory Device') is not None:
-            mmemory_device = data['Memory Device']
-            for item in mmemory_device:
+        if data.get('Memory Device') is not  None:
+            memory_device = data['Memory Device']
+            for item in memory_device:
                 if item['Size'].find('GB') > 0:
-                    dmi_total += int(item['Size'].replace('GB', '').trim() * 1000)
-                if item['Size'].find('GB') > 0:
-                    dmi_total += int(item['Size'].replace('GB', '').trim())
-        return dmi_total
+                    dmi_total += int(item['Size'].replace('GB', '') * 1000)
+                if item['Size'].find('MB') > 0:
+                    dmi_total += int(item['Size'].replace('MB', ''))
+        return dmi_total if dmi_total < IRONIC_MEM_LIMIT else IRONIC_MEM_LIMIT
 
     def get_node_cpu(self, identifier):
         dmi = self.get_catalogs_by_source(identifier=identifier, source='dmi')

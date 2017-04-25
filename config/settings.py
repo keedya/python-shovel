@@ -1,5 +1,8 @@
 import logging
 import yaml
+from on_http_api2_0 import Configuration
+from on_http_api2_0 import ApiClient
+
 
 # Global logger setup: CRITICAL < ERROR < WARNING < INFO < DEBUG
 LOGFORMAT = '%(asctime)s:%(name)s:%(levelname)s - %(message)s'
@@ -50,3 +53,15 @@ except Exception as err:
     print ('failed to read config file: {0}'.format(err))
 
 logging.basicConfig(level=LOGLEVELS[config['shovel']['logLevel']], format=LOGFORMAT)
+
+# RackHD
+
+rackhd = config['rackhd']
+rackhd_config = Configuration()
+rackhd_config.host = rackhd['host'] + ':' + str(rackhd['port']) + '/' + rackhd['api']
+rackhd_config.verify_ssl = rackhd['verify_ssl']
+rackhd_config.api_client = ApiClient(host=rackhd_config.host)
+rackhd_config.debug = rackhd['debug']
+
+
+

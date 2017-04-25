@@ -15,6 +15,14 @@ class GetNodes(Resource):
         return rackhd_client.get_compute_nodes()
 
 
+@rackhd_route.route('/nodes/<string:identifier>')
+class GetNode(Resource):
+    '''Shows a list of a compute nodes in RackHD by identifier'''
+    def get(self, identifier):
+        '''List all compute nodes'''
+        return rackhd_client.get_node(identifier)
+
+
 @rackhd_route.route('/nodes/<string:identifier>/catalogs')
 class GetNodesCatalogs(Resource):
     '''Shows compute node catalogs in RackHD'''
