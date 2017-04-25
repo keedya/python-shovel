@@ -3,6 +3,7 @@ from app import app
 from api.rackhd import rackhd_route
 from api.ironic import ironic_route
 from api.glance import glance_route
+from api.shovel import shovel_route
 
 
 if __name__ == '__main__':

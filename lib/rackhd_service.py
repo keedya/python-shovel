@@ -110,7 +110,7 @@ class RackHDClient():
         dmi = self.get_catalogs_by_source(identifier=identifier, source='dmi')
         if dmi[DATA].get('data') is None:
             raise Exception('dmi data is empty for node {0}'.format(identifier))
-        data = dmi.get('data')
+        data = dmi[DATA].get('data')
         dmi_total = 0
         if data.get('Memory Device') is not None:
             mmemory_device = data['Memory Device']
@@ -125,7 +125,7 @@ class RackHDClient():
         dmi = self.get_catalogs_by_source(identifier=identifier, source='dmi')
         if dmi[DATA].get('data') is None:
             raise Exception('dmi data is empty for node {0}'.format(identifier))
-        data = dmi.get('data')
+        data = dmi[DATA].get('data')
         if data.get('Processor Information') is not None:
             return len(data.get('Processor Information'))
         else:

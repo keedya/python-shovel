@@ -49,7 +49,7 @@ def get_node(uuid):
 def create_node(**kwargs):
     client = get_client()
     try:
-        return get_response(client.node.create(**kwargs)), 201
+        return client.node.create(**kwargs)
     except HTTPClientError as err:
         return {'error': err.message}, err.http_status
 
@@ -57,7 +57,7 @@ def create_node(**kwargs):
 def delete_node(uuid):
     client = get_client()
     try:
-        return get_response(client.node.delete(uuid)), 202
+        return client.node.delete(uuid)
     except HTTPClientError as err:
         return {'error': err.message}, err.http_status
 
@@ -65,7 +65,7 @@ def delete_node(uuid):
 def create_port(**kwargs):
     client = get_client()
     try:
-        return get_response(client.port.create(**kwargs)), 201
+        return client.port.create(**kwargs)
     except HTTPClientError as err:
         return {'error': err.message}, err.http_status
 
