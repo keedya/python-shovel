@@ -92,3 +92,11 @@ def get_driver_list():
                 for item in client.driver.list()], 200
     except HTTPClientError as err:
         return {'error': err.message}, err.http_status
+
+def patch_node(uuid, data):
+    client = get_client()
+    try:
+        return get_response(client.node.patch(uuid, **data)), 204
+    except HTTPClientError as err:
+        return {'error': err.message}, err.http_status
+    

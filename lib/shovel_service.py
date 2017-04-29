@@ -34,7 +34,8 @@ def register(user_entry):
         propreties = {
             'cpus': rackhd.get_node_cpu(rackhd_node),
             'memory_mb': rackhd.get_node_memory_size(rackhd_node),
-            'local_gb': rackhd.get_node_disk_size(rackhd_node)
+            'local_gb': rackhd.get_node_disk_size(rackhd_node),
+            'cpu_arch': 'x86_64'
         }
     except Exception as err:
         return {'err': err.message}, 404

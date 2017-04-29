@@ -1,11 +1,11 @@
 
 shovel:
     host: 0.0.0.0
-    port: 9005
+    port: 9000
     debug: True
     logLevel: INFO
 rackhd:
-    host: http://10.240.19.242
+    host: http://localhost
     port: 8080
     api: api/2.0
     debug: False
