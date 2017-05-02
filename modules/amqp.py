@@ -1,11 +1,12 @@
 import pika
 import threading
+from config.settings import config
 class AmqpWorker(threading.Thread):
     def __init__(self, exchange_name, topic_routing_key, external_callback, timeout=-1):
         threading.Thread.__init__(self)
         print('amqp constructor')
-        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host='localhost',
-                                                                            port=5672))
+        self.connection = pika.BlockingConnection(pika.ConnectionParameters(host=config['rackhd']['amqp']['host'],
+                                                                            port=config['rackhd']['amqp']['port']))
         self.channel = self.connection.channel()
         result = self.channel.queue_declare(exclusive=True)
         queue_name = result.method.queue

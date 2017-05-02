@@ -21,7 +21,7 @@ def register(user_entry):
         'nodeid': user_entry.get('uuid'),
         'name': user_entry.get('name'),
         'lsevents': {'time': 0},
-        'eventcnt': 0,
+        'eventcnt': 'SEL',
         'failover': user_entry.get('failovernode'),
         'eventre': user_entry.get('eventre'),
         'timer': {}

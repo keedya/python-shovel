@@ -42,7 +42,7 @@ def get_node_list():
 def get_node(uuid):
     client = get_client()
     try:
-        return get_response(client.node.get(uuid, detail=True)), 200
+        return get_response(client.node.get(uuid)), 200
     except HTTPClientError as err:
         return {'error': err.message}, err.http_status
 
@@ -93,10 +93,8 @@ def get_driver_list():
     except HTTPClientError as err:
         return {'error': err.message}, err.http_status
 
-def patch_node(uuid, data):
+def patch_node(uuid, patch):
     client = get_client()
-    try:
-        return get_response(client.node.patch(uuid, **data)), 204
-    except HTTPClientError as err:
-        return {'error': err.message}, err.http_status
+    return client.node.update(uuid, patch)
+
     

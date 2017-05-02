@@ -27,7 +27,11 @@ config = {
         'port': 8080,
         'api': 'api/2.0',
         'debug': False,
-        'verify_ssl': False
+        'verify_ssl': False,
+        'amqp': {
+            'host': 'localhost',
+            'port': 5672
+        }
     },
     'ironic': {
         'os_username': 'admin',
